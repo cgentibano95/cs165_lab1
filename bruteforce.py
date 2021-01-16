@@ -25,6 +25,27 @@ def try_pass(pass_list):
     print("done checking pw's..... ")
     return found_pw
 
+def try_onepass(one_word):
+    md5 = MD5Crypt()
+    magic = "$1$"
+    salt = "4fTgjp6q" # team 41
+    found_pw = ""
+
+    print("\n\nChecking one pw, please wait..")
+    '''
+        print(md5.calc_hash(pw, salt, magic))
+        print("$1$4fTgjp6q$9jnkmpmGRVLiVbyM7ZRsh1")
+        print("magic")
+    '''
+    #print(md5.calc_hash(one_word, salt, magic))
+    if md5.calc_hash(one_word, salt, magic) == "$1$4fTgjp6q$9jnkmpmGRVLiVbyM7ZRsh1":
+        found_pw = one_word
+        print("found result! " + found_pw)
+        return found_pw
+    if found_pw == "":
+        print("not found in your string: " + one_word)
+    print("done checking pw's..... ")
+    return found_pw
 
 def generate_pws():
         pw_found = "" #storing pw here
@@ -38,7 +59,6 @@ def generate_pws():
         pw_found = try_pass(pw_list)
         if pw_found != "":
             return pw_found
-
         pw_list = []
         # empty then try 2 chars
         for x in product(low_ascii, repeat=2):
@@ -46,7 +66,6 @@ def generate_pws():
         pw_found = try_pass(pw_list)
         if pw_found != "":
             return pw_found
-
         pw_list = []
         # empty then try 3 chars
         for x in product(low_ascii, repeat=3):
@@ -54,7 +73,6 @@ def generate_pws():
         pw_found = try_pass(pw_list)
         if pw_found != "":
             return pw_found
-
         pw_list = []
         # empty then try 4 chars
         for x in product(low_ascii, repeat=4):
@@ -77,12 +95,18 @@ def generate_pws():
         pw_list = []
         print("Checking 6 char  ")
         # empty then try 6 chars
+
+        loop_pw = ""
+        success = ""
         for x in product(low_ascii, repeat=6):
-            pw_list.append(x[0] + x[1] + x[2] + x[3] + x[4] + x[5])
-        pw_found = try_pass(pw_list)
+            loop_pw = ''.join(x)
+            success = try_onepass(loop_pw)
+            if success:
+                print("password is: " + success)
+                return success
+
         if pw_found != "":
             return pw_found
-        #print(pw_list)
 
         return pw_found
 
