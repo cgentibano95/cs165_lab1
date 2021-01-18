@@ -2,12 +2,12 @@ from itertools import product
 import hashlib
 import binascii
 
+
 class MD5Crypt:
 
     def to64(self, hash, n):
         ret = ""
         base64 = "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-
         for i in range(n):
             ret += base64[hash&0x3f]
             hash >>= 6
@@ -40,7 +40,8 @@ class MD5Crypt:
                 # if unset, append first byte of the pw
                 intermediate += pw[0].encode('utf-8')
             pw_len >>= 1
-        # intermediate calculated, returns hex
+
+        # intermediate calculate
         return hashlib.md5(intermediate).digest()
 
     # loop function will loop 1000 times to stretch algo
