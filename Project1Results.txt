@@ -1,0 +1,4 @@
+Team 41 password: gzwbuh
+Processes used: 10
+CPU: AMD 2700x
+Candidate passwords tested per second: ~8080-10000 per second
